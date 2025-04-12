@@ -55,7 +55,7 @@ const LandingPage = () => {
           <h2 className="text-5xl font-bold typing-effect" id="typing-text"></h2>
           <p className="mt-4 text-lg">Create Your Own Visionary Whiteboard!</p>
           <button
-            className="mt-6 inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600"
+            className="mt-6 inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 hover:scale-105"
             onClick={() => navigate('/login')}
           >
             Get Started!
@@ -106,9 +106,8 @@ const LandingPage = () => {
         <section className="bg-gray-900 text-center py-10">
           <h3 className="text-2xl font-bold text-white">Ready to Get Started?</h3>
           <button
-            className="mt-4 inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600"
-            onClick={() => navigate('/login')}
-          >
+            className="mt-4 inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 hover:scale-105"
+            onClick={() => navigate('/login')}>
             Sign Up Now
           </button>
         </section>
