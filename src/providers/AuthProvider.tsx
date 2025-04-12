@@ -28,7 +28,15 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     return onAuthStateChanged(auth, async (userInfo) => {
       console.log(`Auth state changed: ${userInfo?.email}`)
       if (userInfo != null) {
-        const user = await getUserById(userInfo.uid)
+        const existingUser = await getUserById(userInfo.uid)
+
+        //the user doc get put in the db after the auth event is sent, so this is needed :(
+        const user = {
+          displayName: existingUser ? existingUser.displayName : userInfo.displayName,
+          uid: userInfo.uid,
+          email: existingUser ? existingUser.email : userInfo.email
+        } as UserProfile
+
         const token = await auth.currentUser?.getIdToken()
         setAuthState({
           isAuthed: true,

@@ -9,7 +9,7 @@ body {
   @apply w-full h-full bg-gray-900 text-gray-200;
 }
 
-.mord {
+.katex-html {
   @apply hidden;
 }
 

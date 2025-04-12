@@ -10,9 +10,11 @@ import AuthProvider from './providers/AuthProvider'
 import useAuth from './hooks/useAuth'
 
 function SecretPage() {
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
 
-  return <p>Hello {user!.displayName}!</p>
+  if (user) {
+    return <p onClick={logout}>Hello {user.displayName}!</p>
+  }
 }
 
 function App() {
