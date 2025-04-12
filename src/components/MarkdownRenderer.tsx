@@ -8,7 +8,7 @@ type Props = {
 }
 
 export default function MarkdownRenderer({ md }: Props) {
-  return <div className="prose prose-slate leading-snug my-4 prose-invert 
+  return <div className="prose prose-slate leading-snug prose-invert 
             prose-headings:mt-5 prose-headings:mb-2 prose-ul:mt-0 
             prose-pre:bg-transparent prose-pre:p-0 prose-li:my-1">
     <Markdown
