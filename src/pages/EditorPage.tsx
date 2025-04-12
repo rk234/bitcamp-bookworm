@@ -22,31 +22,31 @@ import { getBoardIds } from "@/services/boardsService";
 
 export default function EditorPage() {
 
-  let { workspaceID, boardID } = useParams();
+  const { workspaceID, boardID } = useParams();
 
-  let [workspaceDocID, setWorkspaceDocID] = useState<string>();
-  let [boardDocID, setBoardDocID] = useState<string>();
-  
+  const [workspaceDocID, setWorkspaceDocID] = useState<string>();
+  const [boardDocID, setBoardDocID] = useState<string>();
+
   useEffect(() => {
-    if(workspaceID && boardID) {
-      getBoardIds(workspaceID, boardID).then(({workspaceDocID, boardDocID}) => {
-          setWorkspaceDocID(workspaceDocID);
-          setBoardDocID(boardDocID);
-          return;
+    if (workspaceID && boardID) {
+      getBoardIds(workspaceID, boardID).then(({ workspaceDocID, boardDocID }) => {
+        setWorkspaceDocID(workspaceDocID);
+        setBoardDocID(boardDocID);
+        return;
       });
     }
   }, [boardID]);
 
   useEffect(() => {
-    if(workspaceDocID && boardDocID) {
-      let unsub = onSnapshot(doc(db, "workspaces", workspaceDocID, "boards", boardDocID), (snap) => {
+    if (workspaceDocID && boardDocID) {
+      const unsub = onSnapshot(doc(db, "workspaces", workspaceDocID, "boards", boardDocID), (snap) => {
         console.log(snap.data());
       })
       return () => {
         unsub();
       }
     }
-    
+
   }, [boardDocID]);
 
 
@@ -55,7 +55,7 @@ export default function EditorPage() {
       <EditorContextProvider>
         <SidebarProvider>
           <EditorSidebar />
-          <SidebarInset className="bg-transparent">
+          <SidebarInset>
             <header className="flex h-14 shrink-0 items-center gap-2">
               <div className="flex flex-1 items-center gap-2 px-3">
                 <SidebarTrigger />
@@ -72,7 +72,7 @@ export default function EditorPage() {
               </div>
             </header>
             <CanvasContextProvider>
-              <Canvas>
+              <Canvas className="bg-background">
               </Canvas>
             </CanvasContextProvider>
           </SidebarInset>
