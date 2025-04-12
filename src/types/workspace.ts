@@ -8,13 +8,15 @@ export type Workspace = {
 export type Board = {
   id: string,
   name: string,
-  workspaceId: string
+  workspaceId: string,
   blocks: BoardBlock[]
 }
 
 export type BoardBlockTransform = {
-  position: { x: number, y: number }
-  size: { width: number, height: number }
+  x: number,
+  y: number,
+  width: number,
+  height: number,
   rotation: number
 }
 
