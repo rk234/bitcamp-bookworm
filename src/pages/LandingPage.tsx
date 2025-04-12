@@ -76,7 +76,7 @@ const LandingPage = () => {
             ].map((feature, index) => (
               <div
                 key={index}
-                className="relative bg-gray-800 text-gray-100 p-6 rounded shadow overflow-hidden max-w-[400px] group hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 transition-all duration-300"
+                className="relative bg-gray-800 text-gray-100 p-6 rounded shadow overflow-hidden max-w-[400px] group hover:bg-gradient-to-r hover:from-blue-500 hover:to-black-500 transition-all duration-300"
               >
                 <h4 className="text-xl font-semibold">{feature.title}</h4>
                 <p className="mt-2">{feature.description}</p>
