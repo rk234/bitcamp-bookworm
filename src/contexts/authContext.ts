@@ -19,5 +19,3 @@ export const AuthContext = createContext<AuthProviderContext>({
   logout: logoutUser,
   setUser: () => { }
 })
-
-
