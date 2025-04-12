@@ -17,6 +17,7 @@ export default function Canvas({ className = "" }: CanvasProps) {
   function renderBlock(block: BoardBlock) {
     if (block.type == "markdown") {
       return <MarkdownBoardBlock
+        selected={selectedElement?.id == block.id}
         key={block.id}
         onClick={(e) => {
           e.stopPropagation()
@@ -53,7 +54,7 @@ export default function Canvas({ className = "" }: CanvasProps) {
     setEditingElement(undefined)
   }
 
-  return <div onClick={() => clearSelection()} className={twMerge("w-full h-full bg-blue-500", className)}>
+  return <div onClick={() => clearSelection()} className={twMerge("w-full h-full", className)}>
     <TransformWrapper
       disabled={selectedElement != undefined || editingElement != undefined}
       limitToBounds={false}
