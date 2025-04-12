@@ -19,15 +19,18 @@ export type BoardBlockTransform = {
 }
 
 export type MarkdownBlock = {
+  type: "markdown"
   transform: BoardBlockTransform
   markdown: string
 }
 
 export type ArrowBlock = {
+  type: "arrow"
   transform: BoardBlockTransform
 }
 
 export type DrawingBlock = {
+  type: "drawing"
   transform: BoardBlockTransform
   //TODO: idk what to put here lol
 }
