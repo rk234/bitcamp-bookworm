@@ -1,5 +1,9 @@
 
 export default function NetworkPage() {
 
-    return <>Network</>;
+    return <>
+        <div>
+            test
+        </div>
+    </>;
 }

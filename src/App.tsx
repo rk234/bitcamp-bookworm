@@ -1,19 +1,19 @@
-import { Route, Routes } from 'react-router'
-import './App.css'
+import { Route, Routes } from "react-router";
+import "./App.css";
 // import MarkdownRenderer from './components/MarkdownRenderer'
-import LandingPage from './pages/LandingPage'
-import EditorPage from './pages/EditorPage'
-import NetworkPage from './pages/NetworkPage'
-import LoginPage from './pages/LoginPage'
-import RequireAuth from './components/auth/RequireAuth'
-import AuthProvider from './providers/AuthProvider'
-import useAuth from './hooks/useAuth'
+import LandingPage from "./pages/LandingPage";
+import EditorPage from "./pages/EditorPage";
+import NetworkPage from "./pages/NetworkPage";
+import LoginPage from "./pages/LoginPage";
+import RequireAuth from "./components/auth/RequireAuth";
+import AuthProvider from "./providers/AuthProvider";
+import useAuth from "./hooks/useAuth";
 
 function SecretPage() {
-  const { user, logout } = useAuth()
+  const { user, logout } = useAuth();
 
   if (user) {
-    return <p onClick={logout}>Hello {user.displayName}!</p>
+    return <p onClick={logout}>Hello {user.displayName}!</p>;
   }
 }
 
@@ -21,20 +21,42 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route index element={<LandingPage/>}></Route>
-        <Route path="/login" element={
-          <RequireAuth noAuth redirect={"/secret"}>
-            <LoginPage />
-          </RequireAuth>}
+        <Route index element={<LandingPage />}></Route>
+        <Route
+          path="/login"
+          element={
+            <RequireAuth noAuth redirect={"/secret"}>
+              <LoginPage />
+            </RequireAuth>
+          }
         ></Route>
-        <Route path="/edit" element={<EditorPage/>}></Route>
-        <Route path="/secret" element={<RequireAuth>
-          <SecretPage />
-        </RequireAuth>}> </Route>
-        <Route path="/network" element={<NetworkPage/>}></Route>
+        <Route
+          path="/edit"
+          element={
+            <RequireAuth>
+              <EditorPage />
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/secret"
+          element={
+            <RequireAuth>
+              <SecretPage />
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/network"
+          element={
+            <RequireAuth>
+              <NetworkPage />
+            </RequireAuth>
+          }
+        ></Route>
       </Routes>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;
