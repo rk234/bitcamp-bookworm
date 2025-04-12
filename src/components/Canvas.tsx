@@ -3,6 +3,9 @@ import {
   TransformWrapper,
   TransformComponent,
 } from "react-zoom-pan-pinch";
+import {
+  Resizable
+} from "re-resizable"
 import MarkdownRenderer from "./MarkdownRenderer";
 
 type CanvasProps = {
@@ -22,7 +25,9 @@ export default function Canvas({ className }: CanvasProps) {
   return <div className={twMerge("w-full h-full bg-blue-500", className)}>
     <TransformWrapper limitToBounds={false}>
       <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
-        <MarkdownRenderer className="bg-muted p-4 rounded" md={md}></MarkdownRenderer>
+        <Resizable >
+          <MarkdownRenderer className="bg-muted p-4 rounded" md={md}></MarkdownRenderer>
+        </Resizable>
       </TransformComponent>
     </TransformWrapper>
   </div>
