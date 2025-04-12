@@ -7,6 +7,7 @@ import { BoardBlock } from "@/types/workspace";
 import useCanvasContext from "@/hooks/useCanvasContext";
 import MarkdownBoardBlock from "./blocks/MarkdownBlock";
 import { Button } from "./ui/button";
+import SVGBoardBlock from "./blocks/SVGBoardBlock";
 
 type CanvasProps = {
   className?: string,
@@ -18,6 +19,48 @@ export default function Canvas({ className = "" }: CanvasProps) {
   function renderBlock(block: BoardBlock) {
     if (block.type == "markdown") {
       return <MarkdownBoardBlock
+        selected={selectedElement?.id == block.id}
+        editing={editingElement?.id == block.id}
+        key={block.id}
+        onMouseDown={e => {
+          e.stopPropagation()
+          setSelectedElement(block)
+        }}
+        onClick={(e) => {
+          e.stopPropagation()
+          setSelectedElement(block)
+        }}
+        onDoubleClick={(e) => {
+          e.stopPropagation()
+          setEditingElement(block)
+          console.log("editing... ", block.id)
+        }}
+        onResize={(delta) => {
+          const b = {
+            ...block,
+            transform: {
+              ...block.transform,
+              width: block.transform.width + delta.width,
+              height: block.transform.height + delta.height
+            }
+          }
+          setBlock(b)
+        }}
+        onMove={(move) => {
+          console.log("Drag!")
+          setBlock({
+            ...block,
+            transform: {
+              ...block.transform,
+              x: move.x,
+              y: move.y
+            }
+          })
+          console.log(move)
+        }}
+        block={block}></MarkdownBoardBlock>
+    } else if (block.type == "svg") {
+      return <SVGBoardBlock
         selected={selectedElement?.id == block.id}
         editing={editingElement?.id == block.id}
         key={block.id}
@@ -55,7 +98,7 @@ export default function Canvas({ className = "" }: CanvasProps) {
             }
           })
         }}
-        block={block}></MarkdownBoardBlock>
+        block={block}></SVGBoardBlock>
     }
   }
 
@@ -75,7 +118,7 @@ export default function Canvas({ className = "" }: CanvasProps) {
     >
       <div className="absolute bottom-5 w-full flex items-center justify-center z-100">
         <div
-          className={`${selectionMode ? 'bg-green-400 text-background font-bold' : 'bg-muted'} border-slate-500 border-1 rounded-lg p-2 flex min-w-96 h-14 flex-row items-center justify-center gap-4`}>
+          className={`${selectionMode ? 'bg-blue-400 text-background font-bold' : 'bg-muted'}  border-slate-500 border-1 rounded-lg p-2 flex min-w-96 h-14 flex-row items-center justify-center gap-4`}>
           {(selectionMode) ?
             <p>Selection Mode</p> : (<><Button variant="outline" className="rounded-full">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">

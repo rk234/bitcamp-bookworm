@@ -1,7 +1,7 @@
+import Arrow from "@/components/shapes/Arrow";
 import { CanvasContext } from "@/contexts/canvasContext";
 import { BoardBlock } from "@/types/workspace";
 import { ReactNode, useState } from "react";
-
 
 export default function CanvasContextProvider({ children }: { children: ReactNode }) {
   const [selectedElement, setSelectedElement] = useState<BoardBlock | undefined>(undefined)
@@ -30,6 +30,18 @@ export default function CanvasContextProvider({ children }: { children: ReactNod
       },
       id: "foo",
       markdown: "# Header"
+    },
+    {
+      type: "svg",
+      transform: {
+        x: 100,
+        y: 100,
+        width: 100,
+        height: 100,
+        rotation: 0
+      },
+      id: "svg",
+      svg: Arrow(),
     }
   ])
 
