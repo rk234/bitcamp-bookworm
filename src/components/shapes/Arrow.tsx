@@ -12,6 +12,8 @@ export default function Arrow() {
 
     if (r) observer.observe(r)
 
+    handleResize()
+
     return () => {
       if (r) observer.unobserve(r)
     }
@@ -51,10 +53,8 @@ export default function Arrow() {
 
   return <div
     ref={parentRef}
-    className="w-full h-full"
+    className="w-full h-full relative"
   >
-    <canvas ref={canvasRef}>
-
-    </canvas>
+    <canvas className="absolute" ref={canvasRef}></canvas>
   </div>
 }
