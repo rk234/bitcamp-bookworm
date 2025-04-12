@@ -4,6 +4,7 @@ import './App.css'
 import LandingPage from './pages/LandingPage'
 import EditorPage from './pages/EditorPage'
 import NetworkPage from './pages/NetworkPage'
+import ChatbotPanel from './components/ChatbotPanel'
 
 function App() {
   const md = `# Header\n\nSome text\n\n**Yay math**: $\\frac{1}{x}$
