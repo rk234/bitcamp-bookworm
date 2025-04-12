@@ -10,13 +10,25 @@ export default function CanvasContextProvider({ children }: { children: ReactNod
     {
       type: "markdown",
       transform: {
+        x: -500,
+        y: -500,
+        width: 500,
+        height: 500,
+        rotation: 0
+      },
+      id: "woo",
+      markdown: "A markdown block, very exciting"
+    },
+    {
+      type: "markdown",
+      transform: {
         x: 100,
         y: 100,
         width: 500,
         height: 500,
         rotation: 0
       },
-      id: "woo",
+      id: "foo",
       markdown: "# Header"
     }
   ])

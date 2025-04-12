@@ -27,17 +27,11 @@ export type MarkdownBlock = {
   markdown: string
 }
 
-export type ArrowBlock = {
+export type SVGBlock = {
   id: string
-  type: "arrow"
+  type: "svg"
+  svg: React.ReactSVGElement
   transform: BoardBlockTransform
 }
 
-export type DrawingBlock = {
-  id: string
-  type: "drawing"
-  transform: BoardBlockTransform
-  //TODO: idk what to put here lol
-}
-
-export type BoardBlock = MarkdownBlock | ArrowBlock | DrawingBlock
+export type BoardBlock = MarkdownBlock | SVGBlock
