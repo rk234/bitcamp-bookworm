@@ -72,7 +72,7 @@ const LandingPage = () => {
               { title: "Networking", description: "Connect and collaborate with others in the community." },
               { title: "AI Assistance", description: "Edit, Draft Translate. Ask and AI will help." },
               { title: "Custom Viewing", description: "Visualize work in any format, from calendars to boards" },
-              { title: "Feature 6", description: "Description of feature 6." }
+              { title: "Integrated Task Management", description: "Organize and prioritize your tasks directly on the whiteboard." }
             ].map((feature, index) => (
               <div
                 key={index}
@@ -118,8 +118,6 @@ const LandingPage = () => {
           <div className="container mx-auto text-center">
             <p>© 2025 Bitcamp. All rights reserved.</p>
             <div className="flex justify-center space-x-4 mt-2">
-              <a href="#" className="hover:text-blue-400">Privacy Policy</a>
-              <a href="#" className="hover:text-blue-400">Terms of Service</a>
             </div>
           </div>
         </footer>
