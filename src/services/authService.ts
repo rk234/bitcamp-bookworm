@@ -1,6 +1,5 @@
-import { signInWithPopup, signOut } from "firebase/auth/web-extension";
 import { auth, db } from "../config/firebase";
-import { GoogleAuthProvider } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { UserProfile } from "../types/user";
 
@@ -21,12 +20,15 @@ export async function createUser(uid: string, displayName: string, email: string
       displayName: displayName,
       email: email
     }
+    console.log("created profile")
 
     await setDoc(userDoc, profile)
     return profile;
   } else {
     console.log("user already exists, not creating new profile");
-    return ((await getDoc(userDoc)).data() as UserProfile)
+    const profile = (await getDoc(userDoc)).data() as UserProfile
+    console.log(profile)
+    return profile
   }
 }
 
