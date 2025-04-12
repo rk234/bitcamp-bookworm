@@ -21,17 +21,17 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route index element={<LandingPage />}></Route>
+        <Route index element={<LandingPage/>}></Route>
         <Route path="/login" element={
           <RequireAuth noAuth redirect={"/secret"}>
             <LoginPage />
           </RequireAuth>}
         ></Route>
-        <Route path="/edit" element={<EditorPage />}></Route>
+        <Route path="/edit" element={<EditorPage/>}></Route>
         <Route path="/secret" element={<RequireAuth>
           <SecretPage />
         </RequireAuth>}> </Route>
-        <Route path="/network" element={<NetworkPage />}></Route>
+        <Route path="/network" element={<NetworkPage/>}></Route>
       </Routes>
     </AuthProvider>
   )
