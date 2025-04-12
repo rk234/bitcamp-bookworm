@@ -14,14 +14,48 @@ import {
 } from "@/components/ui/sidebar";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import EditorContextProvider from "@/providers/EditorContextProvider";
+import { useParams } from "react-router";
+import { collection, doc, getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore";
+import { db } from "@/config/firebase";
+import { useEffect, useState } from "react";
+import { getBoardIds } from "@/services/boardsService";
 
 export default function EditorPage() {
+
+  let { workspaceID, boardID } = useParams();
+
+  let [workspaceDocID, setWorkspaceDocID] = useState<string>();
+  let [boardDocID, setBoardDocID] = useState<string>();
+  
+  useEffect(() => {
+    if(workspaceID && boardID) {
+      getBoardIds(workspaceID, boardID).then(({workspaceDocID, boardDocID}) => {
+          setWorkspaceDocID(workspaceDocID);
+          setBoardDocID(boardDocID);
+          return;
+      });
+    }
+  }, [boardID]);
+
+  useEffect(() => {
+    if(workspaceDocID && boardDocID) {
+      let unsub = onSnapshot(doc(db, "workspaces", workspaceDocID, "boards", boardDocID), (snap) => {
+        console.log(snap.data());
+      })
+      return () => {
+        unsub();
+      }
+    }
+    
+  }, [boardDocID]);
+
+
   return (
     <>
       <EditorContextProvider>
         <SidebarProvider>
           <EditorSidebar />
-          <SidebarInset>
+          <SidebarInset className="bg-transparent">
             <header className="flex h-14 shrink-0 items-center gap-2">
               <div className="flex flex-1 items-center gap-2 px-3">
                 <SidebarTrigger />

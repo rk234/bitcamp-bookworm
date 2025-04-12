@@ -31,7 +31,7 @@ function App() {
           }
         ></Route>
         <Route
-          path="/edit"
+          path="/edit/:workspaceID/:boardID"
           element={
             <RequireAuth>
               <EditorPage />
