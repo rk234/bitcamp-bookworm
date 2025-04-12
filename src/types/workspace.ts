@@ -21,17 +21,20 @@ export type BoardBlockTransform = {
 }
 
 export type MarkdownBlock = {
+  id: string
   type: "markdown"
   transform: BoardBlockTransform
   markdown: string
 }
 
 export type ArrowBlock = {
+  id: string
   type: "arrow"
   transform: BoardBlockTransform
 }
 
 export type DrawingBlock = {
+  id: string
   type: "drawing"
   transform: BoardBlockTransform
   //TODO: idk what to put here lol
