@@ -1,5 +1,4 @@
 
 export default function LandingPage() {
-
-    return <>Landing</>;
+    return <p>Landing</p>;
 }
