@@ -9,11 +9,10 @@ import MarkdownBoardBlock from "./blocks/MarkdownBlock";
 
 type CanvasProps = {
   className?: string,
-  blocks: BoardBlock[]
 }
 
-export default function Canvas({ className, blocks }: CanvasProps) {
-  const { selectedElement, editingElement, setSelectedElement, setEditingElement } = useCanvasContext()
+export default function Canvas({ className = "" }: CanvasProps) {
+  const { selectedElement, editingElement, setSelectedElement, setEditingElement, blocks, setBlock } = useCanvasContext()
 
   function renderBlock(block: BoardBlock) {
     if (block.type == "markdown") {
@@ -23,6 +22,26 @@ export default function Canvas({ className, blocks }: CanvasProps) {
           e.stopPropagation()
           console.log(block)
           setSelectedElement(block)
+        }}
+        onResize={(delta) => {
+          setBlock({
+            ...block,
+            transform: {
+              ...block.transform,
+              width: block.transform.width + delta.width,
+              height: block.transform.height + delta.height
+            }
+          })
+        }}
+        onMove={(move) => {
+          setBlock({
+            ...block,
+            transform: {
+              ...block.transform,
+              x: move.x,
+              y: move.y
+            }
+          })
         }}
         block={block}></MarkdownBoardBlock>
     }
@@ -41,7 +60,6 @@ export default function Canvas({ className, blocks }: CanvasProps) {
     >
       <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
         {blocks.map(b => renderBlock(b))}
-        <p>{JSON.stringify(selectedElement)}</p>
       </TransformComponent>
     </TransformWrapper>
   </div>

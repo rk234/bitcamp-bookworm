@@ -28,7 +28,7 @@ export default function EditorPage() {
                 </div>
             </header>
             <CanvasContextProvider>
-                <Canvas className="" blocks={[{ type: "markdown", id: "1", transform: { x: 0, y: 0, width: 500, height: 500, rotation: 0 }, markdown: "Some text" }]}>
+                <Canvas>
                 </Canvas>
             </CanvasContextProvider>
         </SidebarInset>

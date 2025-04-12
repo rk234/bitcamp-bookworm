@@ -2,10 +2,24 @@ import { CanvasContext } from "@/contexts/canvasContext";
 import { BoardBlock } from "@/types/workspace";
 import { ReactNode, useState } from "react";
 
+
 export default function CanvasContextProvider({ children }: { children: ReactNode }) {
   const [selectedElement, setSelectedElement] = useState<BoardBlock | undefined>(undefined)
   const [editingElement, setEditingElement] = useState<BoardBlock | undefined>(undefined)
-  const [blocks, setBlocks] = useState<BoardBlock[]>([])
+  const [blocks, setBlocks] = useState<BoardBlock[]>([
+    {
+      type: "markdown",
+      transform: {
+        x: 100,
+        y: 100,
+        width: 500,
+        height: 500,
+        rotation: 0
+      },
+      id: "woo",
+      markdown: "# Header"
+    }
+  ])
 
   return <CanvasContext.Provider value={{
     editingElement: editingElement,
