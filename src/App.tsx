@@ -1,11 +1,13 @@
+import { Route, Routes } from 'react-router'
 import './App.css'
 
 function App() {
 
   return (
-    <>
-      <button className="bg-blue-500">Press me</button>
-    </>
+    <Routes>
+      <Route index element={<p>Hello</p>}></Route>
+      <Route path="/world" element={<p>world</p>}></Route>
+    </Routes>
   )
 }
 
