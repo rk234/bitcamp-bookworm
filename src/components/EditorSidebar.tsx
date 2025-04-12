@@ -10,7 +10,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSubItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { ArrowLeft } from "lucide-react";
