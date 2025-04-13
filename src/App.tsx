@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import EditorPage from "./pages/EditorPage";
 import NetworkPage from "./pages/NetworkPage";
 import LoginPage from "./pages/LoginPage";
+import HelpPage from "./pages/HelpPage";
 import RequireAuth from "./components/auth/RequireAuth";
 import AuthProvider from "./providers/AuthProvider";
 import useAuth from "./hooks/useAuth";
@@ -52,6 +53,12 @@ function App() {
             <RequireAuth>
               <NetworkPage />
             </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/help"
+          element={
+              <HelpPage />
           }
         ></Route>
       </Routes>

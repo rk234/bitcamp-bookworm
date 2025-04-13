@@ -43,7 +43,7 @@ const LandingPage = () => {
             <nav>
               <ul className="flex space-x-4">
                 <li><a href="#" className="text-gray-300 hover:text-blue-400">Home</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-blue-400">About</a></li>
+                <li> <a href="#" className="text-gray-300 hover:text-blue-400" onClick={() => navigate('/help')} >Help</a> </li>
                 <li><a href="#" className="text-gray-300 hover:text-blue-400">Contact</a></li>
               </ul>
             </nav>
