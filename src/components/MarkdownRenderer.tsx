@@ -34,7 +34,7 @@ export default function MarkdownRenderer({ md, className }: MarkdownRendererProp
               {children}
             </code>
           )
-        }
+        },
       }}
     >
       {md}
