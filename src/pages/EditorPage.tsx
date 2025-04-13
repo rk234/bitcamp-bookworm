@@ -94,10 +94,11 @@ export default function EditorPage() {
             </CanvasContextProvider>
           </SidebarInset>
         </SidebarProvider>
+        <ChatbotPanel workspaceID={workspaceID ?? ""}/>
       </EditorContext.Provider>
 
       {/* Add the chatbot panel as an overlay without changing the existing EditorPage content */}
-      <ChatbotPanel />
+      
     </>
   );
 }

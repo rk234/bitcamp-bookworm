@@ -173,7 +173,7 @@ export default function Canvas({ className = "" }: CanvasProps) {
 
   const selectionMode = selectedElement != undefined || editingElement != undefined;
 
-  return <div onClick={() => clearSelection()} className={twMerge("relative w-full h-full", className)}>
+  return <div onClick={() => clearSelection()} className={twMerge("relative w-full h-full cursor-grab active:cursor-grabbing", className)}>
     <TransformWrapper
       disabled={selectionMode}
       limitToBounds={false}
