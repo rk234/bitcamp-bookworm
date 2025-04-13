@@ -107,10 +107,13 @@ export default function Canvas({ className = "" }: CanvasProps) {
 
   function clearSelection() {
     console.log("clearing selection")
-    setSelectedElement(undefined)
-    if(editingElement) {
-      setBlocks(blocks);
+
+    let block = blocks.find(other => other.id == editingElement?.id);
+    if(block && editingElement && block.type == "markdown") {
+      setBlock({...block, markdown: block.markdown.replace("@(", "")})
     }
+
+    setSelectedElement(undefined)
     setEditingElement(undefined)
   }
 
