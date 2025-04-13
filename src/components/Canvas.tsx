@@ -11,6 +11,7 @@ import { Button } from "./ui/button";
 import SVGBoardBlock from "./blocks/SVGBoardBlock";
 import Arrow from "./shapes/Arrow";
 import { Input } from "./ui/input";
+import { useParams } from "react-router";
 
 type CanvasProps = {
   className?: string,
@@ -18,6 +19,7 @@ type CanvasProps = {
 
 export default function Canvas({ className = "" }: CanvasProps) {
   const { selectedElement, editingElement, setSelectedElement, setEditingElement, blocks, setBlock, setBlocks } = useCanvasContext()
+  const { workspaceID } = useParams()
 
   function renderBlock(block: BoardBlock) {
     if (block.type == "markdown") {
@@ -111,6 +113,12 @@ export default function Canvas({ className = "" }: CanvasProps) {
 
     const block = blocks.find(other => other.id == editingElement?.id);
     if (block && editingElement && block.type == "markdown") {
+      block.markdown = block.markdown.replace(/@\(([a-zA-Z0-9 ]+)\)/g, (substr, g1: string) => {
+
+        return `[${g1}](/new/${workspaceID}/${encodeURI(g1)})`
+      })
+      console.log(block.markdown)
+
       setBlock({ ...block, markdown: block.markdown.replace("@(", "") })
     }
 
