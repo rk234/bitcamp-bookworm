@@ -81,7 +81,7 @@ export default function EditorPage() {
                   <BreadcrumbList>
                     <BreadcrumbItem>
                       <BreadcrumbPage className="line-clamp-1">
-                        Workspace Name Goes Here
+                        {board?.name}
                       </BreadcrumbPage>
                     </BreadcrumbItem>
                   </BreadcrumbList>

@@ -34,7 +34,7 @@ export default function MarkdownBoardBlock({ block, onClick, onResize, onMove, s
   >
     {
       editing ?
-        <textarea onChange={e => setBlock({ ...block, markdown: e.target.value })} className={twMerge(classes, selected && "border-2 border-green-400")} value={block.markdown}></textarea>
+        <textarea onChange={e => setBlock({ ...block, markdown: e.target.value }, false)} className={twMerge(classes, selected && "border-2 border-green-400")} value={block.markdown}></textarea>
         :
         <MarkdownRenderer md={block.markdown} className={twMerge(classes, selected && "border-2 border-blue-400")}></MarkdownRenderer>
     }

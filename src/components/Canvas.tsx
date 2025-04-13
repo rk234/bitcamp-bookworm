@@ -108,6 +108,9 @@ export default function Canvas({ className = "" }: CanvasProps) {
   function clearSelection() {
     console.log("clearing selection")
     setSelectedElement(undefined)
+    if(editingElement) {
+      setBlocks(blocks);
+    }
     setEditingElement(undefined)
   }
 

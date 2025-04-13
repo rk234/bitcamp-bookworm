@@ -8,7 +8,7 @@ export type CanvasProviderContext = {
   setEditingElement: (block?: BoardBlock) => void
   blocks: BoardBlock[],
   setBlocks: (blocks: BoardBlock[]) => void
-  setBlock: (block: BoardBlock) => void
+  setBlock: (block: BoardBlock, pushChanges?: boolean) => void
   setLocalBlocks: (block: BoardBlock[]) => void
 }
 
