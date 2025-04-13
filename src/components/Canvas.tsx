@@ -179,7 +179,7 @@ export default function Canvas({ className = "" }: CanvasProps) {
       limitToBounds={false}
       minScale={0.1}
     >
-      <div className="absolute bottom-5 w-full flex items-center justify-center z-100">
+      <div className="absolute bottom-5 w-full flex items-center justify-center z-100 pr-20">
         <div
           className={`${selectionMode ? 'bg-blue-300 text-background font-bold' : 'bg-muted'}  border-slate-500 border-1 rounded-lg p-2 flex min-w-96 h-14 flex-row items-center justify-center gap-4`}>
           {(selectionMode) ?
