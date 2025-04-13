@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ForceGraph2D from "react-force-graph-2d";
 
 const graph = {
@@ -26,14 +26,29 @@ const graph = {
   ],
 };
 
-export default function NetworkGraph() {  
+export default function NetworkGraph() { 
+  let [size, setSize] = useState<[number, number]>([window.innerWidth,window.innerHeight]); 
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSize([window.innerWidth, window.innerHeight]);
+    };
+  
+    window.onresize = handleResize;
+  
+    // Optional cleanup if other code might use window.onresize
+    return () => {
+      window.onresize = null;
+    };
+  }, []);
+
 
   return (
     <>
       <ForceGraph2D
         graphData={graph}
-        width={500}
-        height={300}
+        width={size[0]}
+        height={size[1]}
         backgroundColor={"rgba(0,0,0,0)"}
         linkColor={() => "white"}
         onNodeClick={node => console.log(node.id)}

@@ -1,22 +1,36 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Resizable } from "re-resizable";
 import { sendPromptToGemini } from "../services/geminiService";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { ArrowRight } from "lucide-react";
 import Markdown from "react-markdown";
+import { getAllWorkspaceText } from "@/services/boardsService";
+import { EditorContext } from "@/contexts/editorContext";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+import remarkParse from "remark-parse";
 
-const ChatbotPanel = () => {
+const ChatbotPanel = ({ workspaceID }: { workspaceID: string }) => {
   // Chatbot states
   const [prompt, setPrompt] = useState("");
   const [chatHistory, setChatHistory] = useState<
     { prompt: string; response: string }[]
   >([]);
 
+  const editorContext = useContext(EditorContext);
+
   const handleSendPrompt = async () => {
+    let context = await getAllWorkspaceText(workspaceID);
+    context += `\nThe user is currentonly on the board ${
+      editorContext.board?.name ?? ""
+    } and they are about to make a query. Please answer the query to the best of your ability given the markdown information on the provided boards. Dont speak very meta about the situation just make sure the user experience in fluid. Here is the query:\n\n`;
+
     if (!prompt.trim()) return;
     try {
-      const reply = await sendPromptToGemini(prompt);
+      const reply = await sendPromptToGemini(context+prompt);
       setChatHistory((prev) => [...prev, { prompt, response: reply }]);
       setPrompt("");
     } catch (error) {
@@ -62,7 +76,7 @@ const ChatbotPanel = () => {
             }}
           >
             <h2 style={{ fontSize: "1.125rem", fontWeight: "bold" }}>
-              Gemini AI Chatbot
+              Gemini AI
             </h2>
           </div>
 
@@ -88,15 +102,36 @@ const ChatbotPanel = () => {
                 >
                   <strong>You:</strong> {chat.prompt}
                 </p>
-                <p
+                <div
                   style={{
                     margin: "0.5rem 0",
                     fontSize: "0.875rem",
                     color: "#E5E7EB",
                   }}
                 >
-                  <strong>Gemini:</strong> <Markdown>{chat.response}</Markdown>
-                </p>
+                  <strong>Gemini:</strong> <Markdown
+                          rehypePlugins={[rehypeKatex]}
+                          remarkPlugins={[remarkMath, remarkParse]}
+                          components={{
+                            code(props) {
+                              const { children, className, ...rest } = props
+                              const match = /language-(\w+)/.exec(className || '')
+                              return match ? (
+                                <SyntaxHighlighter
+                                  PreTag="div"
+                                  children={String(children).replace(/\n$/, '')}
+                                  language={match[1]}
+                                  style={nightOwl}
+                                />
+                              ) : (
+                                <code {...rest} className={className}>
+                                  {children}
+                                </code>
+                              )
+                            }
+                          }}
+                  >{chat.response}</Markdown>
+                </div>
               </div>
             ))}
           </div>
