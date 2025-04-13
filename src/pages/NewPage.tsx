@@ -1,5 +1,5 @@
 import { createBoard } from "@/services/boardsService";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 
 export default function NewPage() {
@@ -7,7 +7,7 @@ export default function NewPage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!run && workspaceID && boardName) {
+    if (workspaceID && boardName) {
       createBoard(workspaceID, boardName).then((id) => {
         navigate("/edit/" + workspaceID + "/" + id)
       }).catch(err => {
@@ -15,7 +15,7 @@ export default function NewPage() {
         console.log(err)
       })
     }
-  }, [boardName, navigate, run, workspaceID])
+  }, [boardName, navigate, workspaceID])
 
   return <p>Please wait...</p>
 }
