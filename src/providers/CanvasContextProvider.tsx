@@ -21,8 +21,11 @@ export default function CanvasContextProvider({
   let editorContext = useContext(EditorContext);
 
   useEffect(() => {
+    console.log("BOARD UPDATED FROM OUTSIDE")
     if(editorContext.board && editorContext.board.blocks != blocks) {
       setBlocks(editorContext.board.blocks);
+    } else {
+      console.log("returned")
     }
   }, [editorContext?.board]);
 
@@ -35,12 +38,14 @@ export default function CanvasContextProvider({
         setEditingElement: setEditingElement,
         blocks: blocks,
         setBlock: (nb: BoardBlock) => {
+          const newBlocks = blocks.map((b) => {
+            if (b.id == nb.id) return nb;
+            else return b;
+          });
           setBlocks(
-            blocks.map((b) => {
-              if (b.id == nb.id) return nb;
-              else return b;
-            })
+            newBlocks
           );
+          blocksUpdate(newBlocks)
         },
         setBlocks: (newBlocks: BoardBlock[]) => {
           setBlocks(newBlocks);
