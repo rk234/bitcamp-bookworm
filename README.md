@@ -1,6 +1,6 @@
 # Tetherboard
 Tetherboard is our 2025 Bitcamp Project
-- Fullstack Developers: Joel Chem, Rami Kaddouri
+- Fullstack Developers: Joel Chemmanur, Ramy Kaddouri
 - Machine Learning Engineer: Javin Ahuja
 - Frontend Developer: Henry Gardiner
 ## (React + TypeScript + Vite + Firebase)
