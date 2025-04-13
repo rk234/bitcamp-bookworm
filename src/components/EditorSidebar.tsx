@@ -36,7 +36,11 @@ export function EditorSidebar({
     <Sidebar className="border-r-0" {...props}>
       <SidebarHeader>
         <SidebarMenu>
-          <SidebarMenuButton asChild>
+          <SidebarMenuItem className="w-full p-3 text-center font-extrabold text-2xl">
+            <span className="">Tetherboard</span>
+          </SidebarMenuItem>
+          <hr/>
+          <SidebarMenuButton asChild className="mt-3">
             <a href="/network">
               <ArrowLeft />
               <span>View Network</span>
