@@ -51,11 +51,11 @@ const LandingPage = () => {
         </header>
 
         {/* Hero Section */}
-        <section className="bg-gray-800 text-gray-100 text-center py-20">
+        <section className="bg-gray-800 text-gray-100 text-center py-40">
           <h2 className="text-5xl font-bold typing-effect" id="typing-text"></h2>
-          <p className="mt-4 text-lg">Create Your Own Visionary Whiteboard!</p>
+          <p className="mt-4 text-lg animate-fade-in">Create Your Own Visionary Whiteboard!</p>
           <button
-            className="mt-6 inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 hover:scale-105"
+            className="mt-6 inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 animate-bounce hover:scale-105 transition-all duration-300"
             onClick={() => navigate('/login')}
           >
             Get Started!
@@ -69,7 +69,7 @@ const LandingPage = () => {
             {[
               { title: "Markdown & Drawing Support", description: "Format text with Markdown and freeform drawing on your canvas." },
               { title: "Live Collaboration", description: "Work together in real-time on the same whiteboard." },
-              { title: "Networking", description: "Connect and collaborate with others in the community." },
+              { title: "Networking", description: "Link workspaces to craft innovative and dynamic visualizations" },
               { title: "AI Assistance", description: "Edit, Draft Translate. Ask and AI will help." },
               { title: "Custom Viewing", description: "Visualize work in any format, from calendars to boards" },
               { title: "Integrated Task Management", description: "Organize and prioritize your tasks directly on the whiteboard." }
