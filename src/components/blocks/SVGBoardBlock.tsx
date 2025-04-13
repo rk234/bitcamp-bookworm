@@ -15,20 +15,20 @@ type SVGBoardBlock = {
 }
 
 function getSVGfromType(type: string) {
-  if(type == "arrow") {
+  if (type == "arrow") {
     return <>
       <Arrow />
     </>
 
-  } else if(type == "box") {
+  } else if (type == "box") {
     return <>
       <div className="size-full border-white border-2"></div>
     </>
   }
   return <>
     <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 30 30" strokeWidth={1.5} stroke="currentColor" className="size-full">
-              <circle cx="15" cy="15" r="13" />
-            </svg>
+      <circle cx="15" cy="15" r="13" />
+    </svg>
   </>
 }
 
@@ -41,7 +41,7 @@ export default function SVGBoardBlock({ block, selected, onClick, onResize, onMo
     onMove={onMove}
     onResize={onResize}
   >
-    <div className={`w-full h-full border-2 ${selected && 'border-blue-400'}`} style={{
+    <div className={`w-full h-full ${selected && 'border-2 border-blue-400'}`} style={{
       rotate: `${block.transform.rotation}deg`
     }}>
       {getSVGfromType(block.svg)}
