@@ -26,21 +26,21 @@ export default function EditorPage() {
   const { workspaceID, boardID } = useParams();
 
 
-  let [workspaceDocID, setWorkspaceDocID] = useState<string>();
-  let [boardDocID, setBoardDocID] = useState<string>();
+  const [workspaceDocID, setWorkspaceDocID] = useState<string>();
+  const [boardDocID, setBoardDocID] = useState<string>();
 
-  let [board, setBoard] = useState<Board>();
+  const [board, setBoard] = useState<Board>();
 
-  let onBlocksUpdate = async (blocks: BoardBlock[]) => {
-    if(!workspaceDocID || !boardDocID || !blocks || !board) {
+  const onBlocksUpdate = async (blocks: BoardBlock[]) => {
+    if (!workspaceDocID || !boardDocID || !blocks || !board) {
       return;
     }
-    let ref = doc(db, "workspaces", workspaceDocID, "boards", boardDocID);
-    let newBoard: Board = {...board, blocks};
+    const ref = doc(db, "workspaces", workspaceDocID, "boards", boardDocID);
+    const newBoard: Board = { ...board, blocks };
     console.log(newBoard);
     await updateDoc(ref, newBoard);
-  } 
-  
+  }
+
   useEffect(() => {
     if (workspaceID && boardID) {
       getBoardIds(workspaceID, boardID).then(({ workspaceDocID, boardDocID }) => {
@@ -52,17 +52,15 @@ export default function EditorPage() {
   }, [boardID]);
 
   useEffect(() => {
-    if(workspaceDocID && boardDocID) {
-      let unsub = onSnapshot(doc(db, "workspaces", workspaceDocID, "boards", boardDocID), (snap) => {
-        let res = snap.data() as Board;
-        console.log(res);
+    if (workspaceDocID && boardDocID) {
+      const unsub = onSnapshot(doc(db, "workspaces", workspaceDocID, "boards", boardDocID), (snap) => {
+        const res = snap.data() as Board;
         setBoard(res);
       })
       return () => {
         unsub();
       }
     }
-
   }, [boardDocID]);
 
 
