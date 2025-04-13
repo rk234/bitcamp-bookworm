@@ -4,7 +4,6 @@ export default function Arrow() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const parentRef = useRef<HTMLDivElement>(null)
   const drawCall = useCallback(draw, [])
-  const resizeCall = useCallback(handleResize, [drawCall])
 
   useEffect(() => {
     const r = parentRef.current
@@ -53,7 +52,7 @@ export default function Arrow() {
 
   return <div
     ref={parentRef}
-    className="w-full h-full relative"
+    className="w-full h-full"
   >
     <canvas className="absolute" ref={canvasRef}></canvas>
   </div>

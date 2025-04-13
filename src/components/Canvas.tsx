@@ -10,6 +10,7 @@ import MarkdownBoardBlock from "./blocks/MarkdownBlock";
 import { Button } from "./ui/button";
 import SVGBoardBlock from "./blocks/SVGBoardBlock";
 import Arrow from "./shapes/Arrow";
+import { Input } from "./ui/input";
 
 type CanvasProps = {
   className?: string,
@@ -144,11 +145,11 @@ export default function Canvas({ className = "" }: CanvasProps) {
           type: "svg",
           id: uuidv4(),
           transform: {
-            x: 0, y: 0, width: 100, height: 200, rotation: 0
+            x: 0, y: 0, width: 100, height: 100, rotation: 0
           },
           svg: (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 30 30" strokeWidth={1.5} stroke="currentColor" className="size-full">
-              <circle cx="15" cy="15" r="7" />
+            <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 30 30" strokeWidth={1.5} stroke="currentColor" className="size-full">
+              <circle cx="15" cy="15" r="13" />
             </svg>
           )
         }
@@ -185,8 +186,19 @@ export default function Canvas({ className = "" }: CanvasProps) {
         <div
           className={`${selectionMode ? 'bg-blue-400 text-background font-bold' : 'bg-muted'}  border-slate-500 border-1 rounded-lg p-2 flex min-w-96 h-14 flex-row items-center justify-center gap-4`}>
           {(selectionMode) ?
-            <div className="flex items-center justify-center gap-2 flex-row">
-              <p>Selection Mode</p>
+            <div className="flex items-center justify-center gap-4 flex-row" onClick={(e) => e.stopPropagation}>
+              <p className="grow">Selection Mode</p>
+              <Input className="max-w-32" type="number"
+                value={blocks.find(e => e.id == selectedElement?.id)?.transform.rotation}
+                onChange={(e) => {
+                  const block = {
+                    ...selectedElement
+                  } as BoardBlock
+                  block.transform.rotation = parseInt(e.target.value)
+                  setBlock(block)
+                }
+                }
+              ></Input>
               <Button variant={"secondary"} onClick={() => {
                 setBlocks(blocks.filter(b => b.id != selectedElement?.id))
               }}>
