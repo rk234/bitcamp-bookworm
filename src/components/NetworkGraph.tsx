@@ -1,47 +1,36 @@
+import { getNetworkStuff } from "@/services/boardsService";
 import { useEffect, useRef, useState } from "react";
 import ForceGraph2D from "react-force-graph-2d";
+import { useNavigate } from "react-router";
 
-const graph = {
-  nodes: [
-    { id: "hi", x: 0, y: 0 },
-    { id: "bye", x: 0, y: 0 },
-    { id: "foo", x: 0, y: 0 },
-    { id: "bar", x: 0, y: 0 },
-    { id: "baz", x: 0, y: 0 },
-    { id: "qux", x: 0, y: 0 },
-    { id: "zap", x: 0, y: 0 },
-    { id: "zoom", x: 0, y: 0 },
-  ],
-  links: [
-    { source: "hi", target: "bye" },
-    { source: "hi", target: "foo" },
-    { source: "bye", target: "bar" },
-    { source: "foo", target: "baz" },
-    { source: "baz", target: "bar" },
-    { source: "bar", target: "qux" },
-    { source: "baz", target: "zap" },
-    { source: "zap", target: "zoom" },
-    { source: "qux", target: "zoom" },
-    { source: "zoom", target: "hi" },
-  ],
-};
-
-export default function NetworkGraph() { 
-  let [size, setSize] = useState<[number, number]>([window.innerWidth,window.innerHeight]); 
+export default function NetworkGraph() {
+  let [size, setSize] = useState<[number, number]>([
+    window.innerWidth,
+    window.innerHeight,
+  ]);
+  let [graph, setGraph] = useState<{
+    nodes: { id: string; x: number; y: number; url: string }[];
+    links: { source: string; target: string }[];
+  }>({ nodes: [], links: [] });
 
   useEffect(() => {
     const handleResize = () => {
       setSize([window.innerWidth, window.innerHeight]);
     };
-  
+
     window.onresize = handleResize;
-  
+
     // Optional cleanup if other code might use window.onresize
     return () => {
       window.onresize = null;
     };
   }, []);
 
+  useEffect(() => {
+    getNetworkStuff("e5818093-fb28-46d2-a86c-1080b629848b").then((res) => setGraph(res));
+  }, []);
+
+  let nav = useNavigate();
 
   return (
     <>
@@ -51,19 +40,31 @@ export default function NetworkGraph() {
         height={size[1]}
         backgroundColor={"rgba(0,0,0,0)"}
         linkColor={() => "white"}
-        onNodeClick={node => console.log(node.id)}
+        onNodeClick={(node) => nav(node.url)}
         nodeCanvasObject={(node, ctx, globalScale) => {
           const label = node.id;
-          const fontSize = 20/globalScale;
+          const fontSize = 15 / globalScale;
           ctx.font = `${fontSize}px Sans-Serif`;
           const textWidth = ctx.measureText(label).width;
-          const bckgDimensions: [number, number] = [textWidth+fontSize*.2, 1.2*fontSize]; // some padding
+          const bckgDimensions: [number, number] = [
+            textWidth + fontSize * 1.2,
+            2 * fontSize,
+          ]; // some padding
 
-          ctx.fillStyle = 'rgba(120, 120, 120, 1)';
-          ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
+          ctx.fillStyle = "oklch(0.551 0.027 264.364)";
 
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
+          ctx.beginPath();
+          ctx.roundRect(
+            node.x - bckgDimensions[0] / 2,
+            node.y - bckgDimensions[1] / 2,
+            ...bckgDimensions,
+            5
+          );
+          ctx.stroke();
+          ctx.fill();
+
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
           ctx.fillStyle = "white";
           ctx.fillText(label, node.x, node.y);
 
@@ -72,7 +73,12 @@ export default function NetworkGraph() {
         nodePointerAreaPaint={(node, color, ctx) => {
           ctx.fillStyle = color;
           const bckgDimensions: [number, number] = node.__bckgDimensions;
-          bckgDimensions && ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
+          bckgDimensions &&
+            ctx.fillRect(
+              node.x - bckgDimensions[0] / 2,
+              node.y - bckgDimensions[1] / 2,
+              ...bckgDimensions
+            );
         }}
       />
     </>

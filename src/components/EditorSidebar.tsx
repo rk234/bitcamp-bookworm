@@ -37,13 +37,13 @@ export function EditorSidebar({
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem className="w-full p-3 text-center font-extrabold text-2xl">
-            <span className="">Tetherboard</span>
+            <a href="/"><span>Tetherboard</span></a>
           </SidebarMenuItem>
           <hr/>
           <SidebarMenuButton asChild className="mt-3">
             <a href="/network">
               <ArrowLeft />
-              <span>View Network</span>
+              <span>View Tethermap</span>
             </a>
           </SidebarMenuButton>
         </SidebarMenu>

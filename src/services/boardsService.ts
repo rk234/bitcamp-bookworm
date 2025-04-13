@@ -102,3 +102,36 @@ export async function createBoard(workspaceId: string, name: string) {
 
   return id
 }
+
+export async function getNetworkStuff(workspaceID: string) {
+
+  let out: {
+    nodes: {id: string, x: number, y: number, url: string}[]
+    links: {source: string, target: string}[]
+  } = {
+    nodes: [],
+    links: [],
+  };
+  let boards = await getAllBoardsInWorkspace(workspaceID);
+
+  boards.forEach(board => {
+    out.nodes.push({id: board.name, x: 0, y: 0, url: "/edit/"+workspaceID+"/"+board.id})
+    let content = ""
+
+    board.blocks.forEach(block => {
+      if (block.type == "markdown") {
+        content += block.markdown + "\n"
+      }
+    });
+
+    boards.forEach(otherBoard => {
+      if(content.includes(`[${otherBoard.name}](/new`)) {
+        out.links.push({source: board.name, target: otherBoard.name})
+      }
+    });
+  });
+
+  console.log(out);
+  return out;
+  
+}
