@@ -13,20 +13,35 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Separator } from "@radix-ui/react-dropdown-menu";
-import EditorContextProvider from "@/providers/EditorContextProvider";
 import { useParams } from "react-router";
-import { collection, doc, getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { useEffect, useState } from "react";
 import { getBoardIds } from "@/services/boardsService";
+import { Board, BoardBlock } from "@/types/workspace";
+import { EditorContext } from "@/contexts/editorContext";
 
 export default function EditorPage() {
 
   const { workspaceID, boardID } = useParams();
 
-  const [workspaceDocID, setWorkspaceDocID] = useState<string>();
-  const [boardDocID, setBoardDocID] = useState<string>();
 
+  let [workspaceDocID, setWorkspaceDocID] = useState<string>();
+  let [boardDocID, setBoardDocID] = useState<string>();
+
+  let [board, setBoard] = useState<Board>();
+
+  let onBlocksUpdate = async (blocks: BoardBlock[]) => {
+    if(!workspaceDocID || !boardDocID || !blocks || !board) {
+      return;
+    }
+    let ref = doc(db, "workspaces", workspaceDocID, "boards", boardDocID);
+    console.log(ref)
+    let newBoard: Board = {...board, blocks};
+    console.log(newBoard);
+    await updateDoc(ref, newBoard);
+  } 
+  
   useEffect(() => {
     if (workspaceID && boardID) {
       getBoardIds(workspaceID, boardID).then(({ workspaceDocID, boardDocID }) => {
@@ -38,9 +53,11 @@ export default function EditorPage() {
   }, [boardID]);
 
   useEffect(() => {
-    if (workspaceDocID && boardDocID) {
-      const unsub = onSnapshot(doc(db, "workspaces", workspaceDocID, "boards", boardDocID), (snap) => {
-        console.log(snap.data());
+    if(workspaceDocID && boardDocID) {
+      let unsub = onSnapshot(doc(db, "workspaces", workspaceDocID, "boards", boardDocID), (snap) => {
+        let res = snap.data() as Board;
+        console.log(res);
+        setBoard(res);
       })
       return () => {
         unsub();
@@ -52,7 +69,9 @@ export default function EditorPage() {
 
   return (
     <>
-      <EditorContextProvider>
+      <EditorContext.Provider value={{
+        board, setBoard
+      }}>
         <SidebarProvider>
           <EditorSidebar />
           <SidebarInset>
@@ -71,13 +90,13 @@ export default function EditorPage() {
                 </Breadcrumb>
               </div>
             </header>
-            <CanvasContextProvider>
-              <Canvas className="bg-background">
+            <CanvasContextProvider blocksUpdate={onBlocksUpdate}>
+              <Canvas>
               </Canvas>
             </CanvasContextProvider>
           </SidebarInset>
         </SidebarProvider>
-      </EditorContextProvider>
+      </EditorContext.Provider>
     </>
   );
 }
