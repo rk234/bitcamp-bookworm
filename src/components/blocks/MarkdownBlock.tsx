@@ -1,9 +1,8 @@
 import { MarkdownBlock } from "@/types/workspace"
-import { DraggableData, ResizableDelta, Rnd } from "react-rnd"
+import { DraggableData, ResizableDelta } from "react-rnd"
 import MarkdownRenderer from "../MarkdownRenderer"
 import { twMerge } from "tailwind-merge"
 import useCanvasContext from "@/hooks/useCanvasContext"
-import { useTransformComponent } from "react-zoom-pan-pinch"
 import BoardBlock from "./BoardBlock"
 
 export type MarkdownBlockProps = {

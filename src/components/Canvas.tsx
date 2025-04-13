@@ -9,7 +9,6 @@ import useCanvasContext from "@/hooks/useCanvasContext";
 import MarkdownBoardBlock from "./blocks/MarkdownBlock";
 import { Button } from "./ui/button";
 import SVGBoardBlock from "./blocks/SVGBoardBlock";
-import Arrow from "./shapes/Arrow";
 import { Input } from "./ui/input";
 import { useParams } from "react-router";
 
