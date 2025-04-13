@@ -1,4 +1,3 @@
-import Arrow from "@/components/shapes/Arrow";
 import { CanvasContext } from "@/contexts/canvasContext";
 import { EditorContext } from "@/contexts/editorContext";
 import { BoardBlock } from "@/types/workspace";
@@ -22,10 +21,6 @@ export default function CanvasContextProvider({
   let editorContext = useContext(EditorContext);
 
   useEffect(() => {
-    blocksUpdate(blocks);
-  }, [blocks]);
-
-  useEffect(() => {
     if(editorContext.board && editorContext.board.blocks != blocks) {
       setBlocks(editorContext.board.blocks);
     }
@@ -47,7 +42,11 @@ export default function CanvasContextProvider({
             })
           );
         },
-        setBlocks: (newBlocks: BoardBlock[]) => setBlocks(newBlocks),
+        setBlocks: (newBlocks: BoardBlock[]) => {
+          setBlocks(newBlocks);
+          blocksUpdate(newBlocks);
+        },
+        setLocalBlocks: (newBlocks: BoardBlock[]) => setBlocks(newBlocks)
       }}
     >
       {children}
