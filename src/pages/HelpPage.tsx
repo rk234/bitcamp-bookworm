@@ -11,12 +11,11 @@ export default function HelpPage() {
             {/* Fixed Header */}
             <header className="bg-gray-900 shadow fixed top-0 left-0 w-full z-10">
                 <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-                    <h1 className="text-2xl font-bold text-white">Book Worm</h1>
+                    <h1 className="text-2xl font-bold text-white">Tetherboard</h1>
                     <nav>
                         <ul className="flex space-x-4">
                             <li><a href="#" className="text-gray-300 hover:text-blue-400" onClick={() => navigate('/')}>Home</a></li>
                             <li><a href="#" className="text-gray-300 hover:text-blue-400" onClick={() => navigate('/help')}>Help</a></li>
-                            <li><a href="#" className="text-gray-300 hover:text-blue-400">Contact</a></li>
                         </ul>
                     </nav>
                 </div>

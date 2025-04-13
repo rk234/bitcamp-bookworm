@@ -5,7 +5,7 @@ const LandingPage = () => {
     const navigate = useNavigate();
   
     useEffect(() => {
-      const text = "Welcome to Book Worm!";
+      const text = "Welcome to Tetherboard!";
       const typingText = document.getElementById("typing-text");
       let index = 0;
       let timeoutId: NodeJS.Timeout;
@@ -39,19 +39,18 @@ const LandingPage = () => {
         {/* Header */}
         <header className="bg-gray-900 shadow">
           <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-white">Book Worm</h1>
+            <h1 className="text-2xl font-bold text-white">Tetherboard</h1>
             <nav>
               <ul className="flex space-x-4">
                 <li><a href="#" className="text-gray-300 hover:text-blue-400">Home</a></li>
                 <li> <a href="#" className="text-gray-300 hover:text-blue-400" onClick={() => navigate('/help')} >Help</a> </li>
-                <li><a href="#" className="text-gray-300 hover:text-blue-400">Contact</a></li>
               </ul>
             </nav>
           </div>
         </header>
 
         {/* Hero Section */}
-        <section className="bg-gray-800 text-gray-100 text-center py-40">
+        <section className="bg-gray-800 text-gray-100 text-center py-60">
           <h2 className="text-5xl font-bold typing-effect" id="typing-text"></h2>
           <p className="mt-4 text-lg animate-fade-in">Create Your Own Visionary Whiteboard!</p>
           <button
