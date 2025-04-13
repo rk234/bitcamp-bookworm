@@ -27,7 +27,7 @@ function App() {
         <Route
           path="/login"
           element={
-            <RequireAuth noAuth redirect={"/secret"}>
+            <RequireAuth noAuth redirect={"/network"}>
               <LoginPage />
             </RequireAuth>
           }
