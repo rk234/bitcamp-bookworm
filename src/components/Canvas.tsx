@@ -134,7 +134,7 @@ export default function Canvas({ className = "" }: CanvasProps) {
           transform: {
             x: 0, y: 0, width: 100, height: 100, rotation: 0
           },
-          svg: <Arrow />
+          svg: "arrow"
         }
         ]
       )
@@ -147,11 +147,7 @@ export default function Canvas({ className = "" }: CanvasProps) {
           transform: {
             x: 0, y: 0, width: 100, height: 100, rotation: 0
           },
-          svg: (
-            <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 30 30" strokeWidth={1.5} stroke="currentColor" className="size-full">
-              <circle cx="15" cy="15" r="13" />
-            </svg>
-          )
+          svg: "circle"
         }
         ]
       )
@@ -164,9 +160,7 @@ export default function Canvas({ className = "" }: CanvasProps) {
           transform: {
             x: 0, y: 0, width: 100, height: 200, rotation: 0
           },
-          svg: (
-            <div className="size-full border-white border-2"></div>
-          )
+          svg: "box"
         }
         ]
       )
@@ -184,17 +178,24 @@ export default function Canvas({ className = "" }: CanvasProps) {
     >
       <div className="absolute bottom-5 w-full flex items-center justify-center z-100">
         <div
-          className={`${selectionMode ? 'bg-blue-400 text-background font-bold' : 'bg-muted'}  border-slate-500 border-1 rounded-lg p-2 flex min-w-96 h-14 flex-row items-center justify-center gap-4`}>
+          className={`${selectionMode ? 'bg-blue-300 text-background font-bold' : 'bg-muted'}  border-slate-500 border-1 rounded-lg p-2 flex min-w-96 h-14 flex-row items-center justify-center gap-4`}>
           {(selectionMode) ?
             <div className="flex items-center justify-center gap-4 flex-row" onClick={(e) => e.stopPropagation}>
               <p className="grow">Selection Mode</p>
-              <Input className="max-w-32" type="number"
+              <Input onClick={e => e.stopPropagation()} className="max-w-32" type="number"
                 value={blocks.find(e => e.id == selectedElement?.id)?.transform.rotation}
+                step={15}
                 onChange={(e) => {
                   const block = {
                     ...selectedElement
                   } as BoardBlock
-                  block.transform.rotation = parseInt(e.target.value)
+                  const r = parseInt(e.target.value)
+                  if (isNaN(r)) {
+                    block.transform.rotation = 0
+                  } else {
+                    block.transform.rotation = parseInt(e.target.value)
+                  }
+                  console.log(block)
                   setBlock(block)
                 }
                 }

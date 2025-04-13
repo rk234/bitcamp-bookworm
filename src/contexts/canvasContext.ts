@@ -9,6 +9,7 @@ export type CanvasProviderContext = {
   blocks: BoardBlock[],
   setBlocks: (blocks: BoardBlock[]) => void
   setBlock: (block: BoardBlock) => void
+  setLocalBlocks: (block: BoardBlock[]) => void
 }
 
 export const CanvasContext = createContext<CanvasProviderContext>({
@@ -18,5 +19,6 @@ export const CanvasContext = createContext<CanvasProviderContext>({
   setSelectedElement: () => { },
   blocks: [],
   setBlocks: () => { },
-  setBlock: () => { }
+  setBlock: () => { },
+  setLocalBlocks: () => { }
 })

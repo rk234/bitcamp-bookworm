@@ -18,12 +18,14 @@ export default function Arrow() {
     }
   }, [])
 
+
   function handleResize() {
     if (canvasRef.current) {
       const parent = canvasRef.current.parentElement;
 
       if (parent) {
         const rect = parent.getBoundingClientRect()
+
         canvasRef.current.width = rect.width;
         canvasRef.current.height = rect.height;
       }
@@ -52,8 +54,8 @@ export default function Arrow() {
 
   return <div
     ref={parentRef}
-    className="w-full h-full"
+    className={`w-full h-full`}
   >
-    <canvas className="absolute" ref={canvasRef}></canvas>
+    <canvas ref={canvasRef} className="size-full"></canvas>
   </div>
 }
