@@ -26,7 +26,7 @@ const ChatbotPanel = ({ workspaceID }: { workspaceID: string }) => {
     let context = await getAllWorkspaceText(workspaceID);
     context += `\nThe user is currentonly on the board ${
       editorContext.board?.name ?? ""
-    } and they are about to make a query. Please answer the query to the best of your ability given the markdown information on the provided boards. Dont speak very meta about the situation just make sure the user experience in fluid. Here is the query:\n\n`;
+    } and they are about to make a query. Please answer the query to the best of your ability considering context of the markdown information on the provided boards. You can reasonably speak about stuff even if it's not directly on the board as long as it makes sense. Dont speak very meta about the situation just make sure the user experience in fluid. Here is the query:\n\n`;
 
     if (!prompt.trim()) return;
     try {

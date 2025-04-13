@@ -90,10 +90,10 @@ export async function createBoard(workspaceId: string, name: string) {
         id: v4(),
         markdown: `# ${name}`,
         transform: {
-          x: 400,
-          y: 400,
+          x: 200,
+          y: 200,
           width: 400,
-          height: 400,
+          height: 150,
         }
       }
     ],
