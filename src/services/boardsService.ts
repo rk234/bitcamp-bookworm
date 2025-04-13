@@ -1,6 +1,6 @@
 import { db } from "@/config/firebase";
 import { Board } from "@/types/workspace";
-import { collection, query, where, getDocs, collection, doc, setDoc, getDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, doc, setDoc, } from "firebase/firestore";
 import { v4 } from "uuid";
 
 export const getBoardIds = async (workspaceID: string, boardID: string) => {
@@ -23,7 +23,7 @@ export const getBoardIds = async (workspaceID: string, boardID: string) => {
   return { workspaceDocID, boardDocID };
 };
 
-export const getAllWorkspaceText = async (workspaceID: string) => {
+export const getAllWorkspaceBoardDocs = async (workspaceID: string) => {
   const workspaceRef = collection(db, "workspaces");
   const workspaceQuery = query(workspaceRef, where("id", "==", workspaceID));
   const workspaceSnapshot = await getDocs(workspaceQuery);
@@ -34,9 +34,20 @@ export const getAllWorkspaceText = async (workspaceID: string) => {
   const boardsRef = collection(db, "workspaces", workspaceDocID, "boards");
   const boardsQuery = query(boardsRef);
   const boardsSnapshot = await getDocs(boardsQuery);
-  console.log(boardsSnapshot)
+  return boardsSnapshot.docs;
+}
 
-  const out = boardsSnapshot.docs.map((doc) => {
+export const getAllBoardsInWorkspace = async (workspaceID: string) => {
+  const boardDocs = await getAllWorkspaceBoardDocs(workspaceID);
+
+  return boardDocs.map((doc) => doc.data() as Board)
+}
+
+
+export const getAllWorkspaceText = async (workspaceID: string) => {
+
+  const boards = await getAllWorkspaceBoardDocs(workspaceID);
+  const out = boards.map((doc) => {
     const board = doc.data() as Board;
     console.log(board)
     let out = `BOARD NAME: ${board.name}\n`
