@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import { getBoardIds } from "@/services/boardsService";
 import { Board, BoardBlock } from "@/types/workspace";
 import { EditorContext } from "@/contexts/editorContext";
+import ChatbotPanel from "@/components/ChatbotPanel";  // Import the chatbot panel component
 
 export default function EditorPage() {
 
@@ -80,7 +81,7 @@ export default function EditorPage() {
                   <BreadcrumbList>
                     <BreadcrumbItem>
                       <BreadcrumbPage className="line-clamp-1">
-                        Workspace Name Goes Here
+                        {board?.name}
                       </BreadcrumbPage>
                     </BreadcrumbItem>
                   </BreadcrumbList>
@@ -94,6 +95,9 @@ export default function EditorPage() {
           </SidebarInset>
         </SidebarProvider>
       </EditorContext.Provider>
+
+      {/* Add the chatbot panel as an overlay without changing the existing EditorPage content */}
+      <ChatbotPanel />
     </>
   );
 }
