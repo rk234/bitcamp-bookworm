@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import RequireAuth from "./components/auth/RequireAuth";
 import AuthProvider from "./providers/AuthProvider";
 import useAuth from "./hooks/useAuth";
+import NewPage from "./pages/NewPage";
 
 function SecretPage() {
   const { user, logout } = useAuth();
@@ -35,6 +36,14 @@ function App() {
           element={
             <RequireAuth>
               <EditorPage />
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/new/:workspaceID/:boardName"
+          element={
+            <RequireAuth>
+              <NewPage></NewPage>
             </RequireAuth>
           }
         ></Route>
