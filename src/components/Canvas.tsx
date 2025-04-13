@@ -134,7 +134,7 @@ export default function Canvas({ className = "" }: CanvasProps) {
           transform: {
             x: 0, y: 0, width: 100, height: 100, rotation: 0
           },
-          svg: <Arrow />
+          svg: "arrow"
         }
         ]
       )
@@ -147,11 +147,7 @@ export default function Canvas({ className = "" }: CanvasProps) {
           transform: {
             x: 0, y: 0, width: 100, height: 100, rotation: 0
           },
-          svg: (
-            <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 30 30" strokeWidth={1.5} stroke="currentColor" className="size-full">
-              <circle cx="15" cy="15" r="13" />
-            </svg>
-          )
+          svg: "circle"
         }
         ]
       )
@@ -164,9 +160,7 @@ export default function Canvas({ className = "" }: CanvasProps) {
           transform: {
             x: 0, y: 0, width: 100, height: 200, rotation: 0
           },
-          svg: (
-            <div className="size-full border-white border-2"></div>
-          )
+          svg: "box"
         }
         ]
       )

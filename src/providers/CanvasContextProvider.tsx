@@ -1,7 +1,8 @@
 import Arrow from "@/components/shapes/Arrow";
 import { CanvasContext } from "@/contexts/canvasContext";
+import { EditorContext } from "@/contexts/editorContext";
 import { BoardBlock } from "@/types/workspace";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 
 export default function CanvasContextProvider({
   blocksUpdate,
@@ -16,48 +17,19 @@ export default function CanvasContextProvider({
   let [editingElement, setEditingElement] = useState<BoardBlock | undefined>(
     undefined
   );
-  let [blocks, setBlocks] = useState<BoardBlock[]>([
-    {
-      type: "markdown",
-      transform: {
-        x: -500,
-        y: -500,
-        width: 500,
-        height: 500,
-        rotation: 0,
-      },
-      id: "woo",
-      markdown: "A markdown block, very exciting",
-    },
-    {
-      type: "markdown",
-      transform: {
-        x: 100,
-        y: 100,
-        width: 500,
-        height: 500,
-        rotation: 0,
-      },
-      id: "foo",
-      markdown: "# Header",
-    },
-    {
-      type: "svg",
-      transform: {
-        x: 100,
-        y: 100,
-        width: 100,
-        height: 100,
-        rotation: 0,
-      },
-      id: "svg",
-      svg: Arrow(),
-    },
-  ]);
+  let [blocks, setBlocks] = useState<BoardBlock[]>([]);
+
+  let editorContext = useContext(EditorContext);
 
   useEffect(() => {
     blocksUpdate(blocks);
   }, [blocks]);
+
+  useEffect(() => {
+    if(editorContext.board && editorContext.board.blocks != blocks) {
+      setBlocks(editorContext.board.blocks);
+    }
+  }, [editorContext?.board]);
 
   return (
     <CanvasContext.Provider

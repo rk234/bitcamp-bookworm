@@ -36,7 +36,6 @@ export default function EditorPage() {
       return;
     }
     let ref = doc(db, "workspaces", workspaceDocID, "boards", boardDocID);
-    console.log(ref)
     let newBoard: Board = {...board, blocks};
     console.log(newBoard);
     await updateDoc(ref, newBoard);

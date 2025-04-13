@@ -30,7 +30,7 @@ export type MarkdownBlock = {
 export type SVGBlock = {
   id: string
   type: "svg"
-  svg: React.ReactNode
+  svg: string
   transform: BoardBlockTransform
 }
 
