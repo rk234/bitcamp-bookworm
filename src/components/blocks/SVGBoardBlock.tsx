@@ -22,7 +22,9 @@ export default function SVGBoardBlock({ block, selected, onClick, onResize, onMo
     onMove={onMove}
     onResize={onResize}
   >
-    <div className={`w-full h-full border-2 ${selected && 'border-blue-400'}`}>
+    <div className={`w-full h-full border-2 ${selected && 'border-blue-400'}`} style={{
+      rotate: `${block.transform.rotation}deg`
+    }}>
       {block.svg}
     </div>
   </BoardBlock>
