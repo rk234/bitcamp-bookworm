@@ -7,3 +7,6 @@ Tetherboard is our 2025 Bitcamp Project
 
 1. Run npm install
 2. Run npm run dev
+
+Demo Video
+https://youtu.be/Ym0JltCofHY?si=Z42H08rmyGQbocX0
